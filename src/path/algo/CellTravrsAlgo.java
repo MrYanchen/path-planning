@@ -21,7 +21,7 @@ public interface CellTravrsAlgo {
 	 *
 	 * @param point
 	 */
-	public void setStart(Point point);
+	public void setStartPoint(Point point);
 
 	/**
 	 * set clean area size

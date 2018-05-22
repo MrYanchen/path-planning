@@ -14,7 +14,7 @@ public class CellTravrsAlgoImpl implements CellTravrsAlgo {
 	// current cell
 	private Cell cell;
 	// start point
-	private Point start;
+	private Point startPoint;
 	// clean area size
 	private double length;
 	// final point path to traverse cell
@@ -25,63 +25,43 @@ public class CellTravrsAlgoImpl implements CellTravrsAlgo {
 	 */
 	public CellTravrsAlgoImpl() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	public void setup() {
-		// TODO Auto-generated method stub
-
+		cellTravrs(startPoint);
 	}
 
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+	private void cellTravrs(Point start) {
+		Point end;
+		if (start.compare(this.cell.getLeft().getFirst()) == 0)
+			end = findEndPoint(start, cell.getRight());
+		else
+			end = findEndPoint(start, cell.getLeft());
+		generatePath(start, end);
 	}
 
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
+	/**
+	 *
+	 * @param point
+	 * @param list
+	 * @return end point
+	 */
+	private Point findEndPoint(Point point, LinkedList<Point> list) {
+		return null;
 	}
 
-	private void cellTravrs() {
-
-	}
-
-	private void generateTraverse() {
-		// Point[] ceiling = (Point[]) this.cell.getCeiling().toArray();
-		// Point[] floor = (Point[]) this.cell.getFloor().toArray();
-		//
-		// if (this.start.compare(ceiling[0])) {
-		//
-		// } else if (this.start.compare(ceiling[ceiling.length - 1])) {
-		//
-		// } else if (this.start.compare(floor[0])) {
-		//
-		// } else if (this.start.compare(floor[floor.length - 1])) {
-		//
-		// } else {
-		//
-		// }
-
-	}
-
-	private void findEndPoint() {
-
-	}
-
-	private void findStartPoint() {
-
+	/**
+	 *
+	 * @param point
+	 * @param list
+	 * @return next start point
+	 */
+	private Point findNextStartPoint(Point point, LinkedList<Point> list) {
+		return null;
 	}
 
 	/**
 	 * generate traverse path from start point to end point
 	 *
-	 * @param start:
-	 *            start point of path
-	 * @param end:
-	 *            end point of path
+	 * @param start
+	 * @param end
 	 */
 	private void generatePath(Point start, Point end) {
 		Point p;
@@ -123,9 +103,9 @@ public class CellTravrsAlgoImpl implements CellTravrsAlgo {
 	}
 
 	@Override
-	public void setStart(Point point) {
+	public void setStartPoint(Point point) {
 		// TODO Auto-generated method stub
-		this.start = point;
+		this.startPoint = point;
 	}
 
 	@Override
