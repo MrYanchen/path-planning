@@ -204,7 +204,7 @@ public class SegmntAlgoImpl implements SegmntAlgo {
 						nc.getNeighborList().add(cell);
 
 						if (cell.getRight().getLast().compare(event.getPoint()) == 0) {
-							rmSameLinePnt(cell.getRight());
+							mvToMostRight(cell.getRight());
 							if (cell.getLeft().size() == 1) {
 								Point intSectWithLeft = this.border.getIntSectPntWithLeft(event.getPoint());
 
@@ -257,7 +257,7 @@ public class SegmntAlgoImpl implements SegmntAlgo {
 			case LEFT:
 				for (Cell cell : tmp) {
 					if (event.findCell(cell)) {
-						rmSameLinePnt(cell.getLeft());
+						mvToMostRight(cell.getLeft());
 						cell.getLeft().add(event.getLeft());
 						break;
 					} else
@@ -267,7 +267,7 @@ public class SegmntAlgoImpl implements SegmntAlgo {
 			case RIGHT:
 				for (Cell cell : tmp) {
 					if (event.findCell(cell)) {
-						rmSameLinePnt(cell.getRight());
+						mvToMostLeft(cell.getRight());
 						cell.getRight().add(event.getRight());
 						break;
 					} else
@@ -336,11 +336,24 @@ public class SegmntAlgoImpl implements SegmntAlgo {
 	}
 
 	/**
-	 * function remove points on the same line
+	 * function move to the most left point in the right list of cell
 	 *
 	 * @param list
 	 */
-	private void rmSameLinePnt(LinkedList<Point> list) {
+	private void mvToMostLeft(LinkedList<Point> list) {
+		Point p1 = list.removeLast();
+		if (p1.getY() == list.getLast().getY())
+			mvToMostLeft(list);
+		else
+			list.add(p1);
+	}
+
+	/**
+	 * function move to the most right point in the left list of cell
+	 *
+	 * @param list
+	 */
+	private void mvToMostRight(LinkedList<Point> list) {
 		Point p1 = list.removeLast();
 		if (p1.getY() == list.getLast().getY()) {
 			list.removeLast();

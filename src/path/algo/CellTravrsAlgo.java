@@ -2,13 +2,12 @@ package path.algo;
 
 import path.domain.Cell;
 import path.domain.Point;
-import path.service.AlgoService;
 
 /**
  * @author MrYanc
  *
  */
-public interface CellTravrsAlgo extends AlgoService {
+public interface CellTravrsAlgo {
 
 	/**
 	 * set traverse cell
