@@ -23,22 +23,62 @@ public class CellTravrsAlgoImpl implements CellTravrsAlgo {
 	/**
 	 * @constructor
 	 */
-	public CellTravrsAlgoImpl() {
+	public CellTravrsAlgoImpl(Cell cell, Point startPoint) {
 		// TODO Auto-generated constructor stub
-		cellTravrs(startPoint);
-	}
-
-	private void cellTravrs(Point start) {
-		Point end;
-		if (start.compare(this.cell.getLeft().getFirst()) == 0)
-			end = findEndPoint(start, cell.getRight());
-		else
-			end = findEndPoint(start, cell.getLeft());
-		generatePath(start, end);
+		// setup
+		setCell(cell);
+		setStartPoint(startPoint);
+		// call traverse function
+		cellTravrs();
 	}
 
 	/**
+	 * function implement cell traverse algorithm
 	 *
+	 * @param start
+	 */
+	private void cellTravrs() {
+		// find start point cell list
+		if (this.startPoint.compare(this.cell.getLeft().getFirst()) == 0) {
+			// find end point
+			Point end = findEndPoint(this.startPoint, this.cell.getRight());
+			// generate path from start point to end point
+			generatePath(this.startPoint, end);
+			// find next start point
+			Point nextStart = findNextStartPoint(end, this.cell.getRight());
+			// generate next tarverse path
+			nextTravrs(nextStart, this.cell.getRight(), this.cell.getLeft());
+		} else {
+			// find end point
+			Point end = findEndPoint(this.startPoint, this.cell.getLeft());
+			// generate path from start point to end point
+			generatePath(this.startPoint, end);
+			// find next start point
+			Point nextStart = findNextStartPoint(end, this.cell.getLeft());
+			// generate next tarverse path
+			nextTravrs(nextStart, this.cell.getLeft(), this.cell.getRight());
+		}
+	}
+
+	/**
+	 * function generate next tarverse path
+	 *
+	 * @param start
+	 * @param startLine
+	 * @param endLine
+	 */
+	private void nextTravrs(Point start, LinkedList<Point> startLine, LinkedList<Point> endLine) {
+		Point end = findEndPoint(start, endLine);
+		generatePath(start, end);
+		if (start.compare(startLine.getLast()) != 0) {
+			Point nextStart = findNextStartPoint(end, endLine);
+			nextTravrs(nextStart, endLine, startLine);
+		}
+	}
+
+	/**
+	 * function find end point
+	 * 
 	 * @param point
 	 * @param list
 	 * @return end point
@@ -103,9 +143,9 @@ public class CellTravrsAlgoImpl implements CellTravrsAlgo {
 	}
 
 	@Override
-	public void setStartPoint(Point point) {
+	public void setStartPoint(Point startPoint) {
 		// TODO Auto-generated method stub
-		this.startPoint = point;
+		this.startPoint = startPoint;
 	}
 
 	@Override
